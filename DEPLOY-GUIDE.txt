@@ -1,0 +1,77 @@
+THE HOUSE OF ADAM EVENTS - HOSTING GUIDE
+========================================
+
+PREVIEW ON YOUR COMPUTER
+  Double-click public_html/index.html - the full site opens in your browser (needs internet
+  for the font, photos and videos). The enquiry form only sends once it is on PHP hosting.
+
+WHAT'S IN THIS ZIP
+  public_html/        The complete website. Upload EVERYTHING inside this folder.
+    index.html, about.html, services.html, gallery.html, contact.html, privacy.html, 404.html
+    assets/           Styles, scripts, logo, icons (and optional local videos)
+    contact.php       Sends enquiry form emails
+    .htaccess         HTTPS, 404 page, /about-style addresses, security, caching   (hidden file!)
+    robots.txt, sitemap.xml   For Google
+  DEPLOY-GUIDE.txt    This file
+
+HOSTING NEEDED
+  Any normal web hosting with Apache + PHP 7.4 or newer (cPanel, Hostinger, Namecheap, GoDaddy...).
+  Note: Vercel/Netlify/GitHub Pages do NOT run PHP, so the enquiry form would not send there.
+
+STEP 1 - BEFORE UPLOADING (5 minutes, in any text editor)
+  a) contact.php  -> set MAIL_TO (inbox for enquiries) and MAIL_FROM (an address on the
+     website's own domain, e.g. website@yourdomain.com - create it in the hosting email panel).
+  b) Replace  https://www.yourdomain.com  with the real domain in:
+     sitemap.xml, robots.txt, and every .html file (use "Find and replace in files"
+     in VS Code or Notepad++; it appears in the canonical and og:url tags).
+  c) Contact details: email, phone, service area and address are not shown yet because they
+     were not supplied. Send them over and the site can be rebuilt with them, or add them
+     to the footer and Contact page of each .html file.
+  d) privacy.html still says "Wording to be supplied". Add the approved Privacy Notice
+     BEFORE launch - the enquiry form collects personal data.
+
+STEP 2 - UPLOAD (cPanel / Hostinger File Manager)
+  1. Log in to the hosting panel and open File Manager.
+  2. Open the public_html folder of the domain. Remove the host's default index page if present.
+  3. Upload the contents of this zip's public_html folder (or upload the zip and "Extract",
+     then move the files so index.html sits directly inside public_html).
+  4. Turn on "Show hidden files" and check that .htaccess is there.
+  FTP alternative: connect with FileZilla and drag the contents into public_html.
+
+STEP 3 - SSL
+  In the hosting panel, enable the free SSL certificate (Let's Encrypt / AutoSSL) for the
+  domain. The .htaccess then sends every visitor to https:// automatically.
+  If the site shows "too many redirects" behind Cloudflare, set Cloudflare SSL mode to "Full".
+
+STEP 4 - TEST (all should work)
+  [ ] https://yourdomain.com loads with the banner video and gold navbar
+  [ ] All menu links open (about.html, services.html, gallery.html, contact.html)
+  [ ] /about (without .html) also opens the About page
+  [ ] A wrong address (e.g. /test123) shows the custom "page could not be found" page
+  [ ] Contact form: submit empty -> red error messages
+  [ ] Contact form: send a real test enquiry -> "Thank you" message with a reference
+      number, and the email arrives at MAIL_TO (check spam the first time)
+  [ ] Check on a phone: menu button opens the full-screen menu
+
+IF THE FORM SAYS "could not be sent"
+  - MAIL_FROM must be a real mailbox on the same domain (create it in the email panel).
+  - Some hosts disable PHP mail(); ask support to enable it, or ask for SMTP details and the
+    script can be switched to SMTP.
+
+VIDEOS AND PHOTOS
+  Banner videos and photos stream from Mixkit (free licence, commercial use allowed).
+  To host them yourself (faster, no dependency): download each clip listed in
+  assets/video/README.txt and upload it to public_html/assets/video/ with the name shown
+  (hero.mp4, about.mp4, services.mp4, gallery.mp4, contact.mp4, privacy.mp4, 404.mp4).
+  The site uses local files first automatically.
+
+HEADINGS FONT (Polymath Display)
+  Headings are set up for Polymath Display by OH no Type. It is a paid font: the free Demo
+  is for testing only and is NOT included. Until a licence is bought, headings use Urbanist.
+  - To preview: install the Demo font on your computer and open index.html.
+  - To go live: buy the webfont licence and add the .woff2 files, or use Adobe Fonts.
+    Step-by-step instructions: public_html/assets/fonts/README.txt
+
+AFTER LAUNCH
+  - Add the site to Google Search Console and submit https://yourdomain.com/sitemap.xml
+  - Replace stock footage with the client's own event photos and videos when available.
