@@ -79,6 +79,101 @@
   });
 })();
 
+/* Continuous photo carousel; scrolling remains native, and motion can be paused. */
+(function () {
+  var rail = document.querySelector('.rail');
+  if (!rail) return;
+  var track = rail.querySelector('.rail-track');
+  var group = track && track.querySelector('.rail-group');
+  var toggle = rail.querySelector('.rail-toggle');
+  var pauseIcon = toggle && toggle.querySelector('.rail-pause-icon');
+  var playIcon = toggle && toggle.querySelector('.rail-play-icon');
+  if (!track || !group || !toggle) return;
+
+  var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (motion.matches) {
+    toggle.hidden = true;
+    return;
+  }
+
+  var groupWidth = group.getBoundingClientRect().width;
+  if (!groupWidth) return;
+  function ensureLoopWidth() {
+    while (track.scrollWidth <= rail.clientWidth + groupWidth) {
+      var clone = group.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.querySelectorAll('img').forEach(function (img) { img.alt = ''; });
+      track.appendChild(clone);
+    }
+  }
+  ensureLoopWidth();
+  window.addEventListener('resize', ensureLoopWidth);
+
+  rail.classList.add('is-carousel');
+  var paused = false;
+  var frame = 0;
+  var lastTime = 0;
+  var resumeTimer = 0;
+
+  function stop() {
+    if (frame) window.cancelAnimationFrame(frame);
+    frame = 0;
+    lastTime = 0;
+  }
+  function start() {
+    if (paused || motion.matches || document.hidden || frame) return;
+    frame = window.requestAnimationFrame(tick);
+  }
+  function tick(time) {
+    if (lastTime) rail.scrollLeft += Math.min(time - lastTime, 50) * 0.025;
+    lastTime = time;
+    if (rail.scrollLeft >= groupWidth) rail.scrollLeft -= groupWidth;
+    frame = window.requestAnimationFrame(tick);
+  }
+  function updateToggle() {
+    var label = paused ? 'Resume automatic photo carousel' : 'Pause automatic photo carousel';
+    toggle.setAttribute('aria-label', label);
+    pauseIcon.hidden = paused;
+    playIcon.hidden = !paused;
+  }
+
+  toggle.addEventListener('click', function () {
+    paused = !paused;
+    updateToggle();
+    if (paused) stop(); else start();
+  });
+  rail.addEventListener('pointerenter', stop);
+  rail.addEventListener('pointerleave', start);
+  rail.addEventListener('focusin', stop);
+  rail.addEventListener('focusout', function (event) {
+    if (!rail.contains(event.relatedTarget)) start();
+  });
+  rail.addEventListener('touchstart', function () {
+    window.clearTimeout(resumeTimer);
+    stop();
+  }, { passive: true });
+  rail.addEventListener('touchend', function () {
+    resumeTimer = window.setTimeout(start, 800);
+  }, { passive: true });
+  rail.addEventListener('touchcancel', function () {
+    window.clearTimeout(resumeTimer);
+    start();
+  }, { passive: true });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stop(); else start();
+  });
+  motion.addEventListener('change', function (event) {
+    if (event.matches) {
+      stop();
+      toggle.hidden = true;
+    } else {
+      toggle.hidden = false;
+      start();
+    }
+  });
+  start();
+})();
+
 /* Home services panel: the preview image follows the hovered or focused row. */
 (function () {
   var rows = document.querySelectorAll('.svc-row[data-preview]');
