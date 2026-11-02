@@ -16,7 +16,17 @@ WHAT'S IN THIS ZIP
 
 HOSTING NEEDED
   Any normal web hosting with Apache + PHP 7.4 or newer (cPanel, Hostinger, Namecheap, GoDaddy...).
-  Note: Vercel/Netlify/GitHub Pages do NOT run PHP, so the enquiry form would not send there.
+  Vercel can serve the static pages using the included vercel.json, but does not run PHP,
+  so the enquiry form will not send there. Netlify/GitHub Pages also do NOT run PHP.
+
+VERCEL DEPLOYMENT
+  1. Import the project folder (the folder containing this guide and vercel.json).
+  2. In Project Settings > Build and Deployment, set Root Directory to the project folder
+     (leave "Include files outside the root directory" off if shown).
+  3. Redeploy. vercel.json tells Vercel to publish public_html, where index.html and the
+     other pages are located, and enables clean URLs such as /about.
+  4. The pages will load, but the contact form needs PHP hosting; use an Apache/PHP host
+     for the form, or connect it to a form service/API before accepting enquiries.
 
 STEP 1 - BEFORE UPLOADING (5 minutes, in any text editor)
   a) contact.php  -> set MAIL_TO (inbox for enquiries) and MAIL_FROM (an address on the
