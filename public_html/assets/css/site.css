@@ -540,7 +540,7 @@ code { font-size: 0.9em; background: rgba(0,0,0,.06); padding: 1px 6px; border-r
   transition: box-shadow .4s ease, transform .4s var(--ease);
 }
 .svc-card:hover { box-shadow: 0 24px 60px rgba(0,0,0,.08); transform: translateY(-3px); }
-.svc-card-media { position: relative; overflow: hidden; border-radius: 0; aspect-ratio: 4 / 5; background: radial-gradient(100% 80% at 50% 0%, #3a2c0c 0%, #1b1b1b 70%); }
+.svc-card-media { position: relative; overflow: hidden; border-radius: 0; aspect-ratio: 16 / 9; background: radial-gradient(100% 80% at 50% 0%, #3a2c0c 0%, #1b1b1b 70%); }
 .svc-card-media > img, .svc-card-media > svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
 .svc-card-media > svg { opacity: .5; }
 .svc-card:hover .svc-card-media > img { transform: scale(1.06); }
@@ -554,11 +554,12 @@ code { font-size: 0.9em; background: rgba(0,0,0,.06); padding: 1px 6px; border-r
 .svc-card-no { display: block; font-size: 0.78rem; font-weight: 600; color: var(--gold-ink); padding-bottom: 10px; margin-bottom: 12px; border-bottom: 1px dashed var(--field); }
 .svc-card-text { color: var(--muted); font-size: 0.9rem; }
 .chips-label { margin: 12px 0 6px; font-size: 0.72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--soft); }
-.chips { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; }
-.chips li { position: relative; padding: 6px 0 6px 14px; border-bottom: 1px solid var(--line); font-size: 0.82rem; font-weight: 500; }
-.chips li::before { content: ""; position: absolute; left: 0; top: 1.08em; width: 6px; height: 6px; border-radius: 1px; background: var(--gold); }
-.svc-card .actions { margin-top: auto; padding-top: 16px; }
-@media (max-width: 560px) { .svc-cards { grid-template-columns: 1fr; } .svc-card-media { aspect-ratio: 5 / 4; } }
+.chips { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.chips li { position: relative; padding: 7px 8px 7px 20px; border-radius: 6px; background: #fff; font-size: 0.8rem; font-weight: 500; line-height: 1.35; }
+.chips li::before { content: ""; position: absolute; left: 9px; top: 1.05em; width: 5px; height: 5px; border-radius: 1px; background: var(--gold); }
+.svc-card .actions { margin-top: auto; padding-top: 14px; }
+.svc-card .actions .btn { max-width: 100%; padding-inline: 14px; font-size: 0.84rem; white-space: normal; text-align: center; }
+@media (max-width: 560px) { .svc-cards { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .svc-card:hover { transform: none; } }
 .combine { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 56px; align-items: end; background: var(--surface); border: 0; padding: clamp(28px, 4vw, 56px); }
 .combine-side p { color: var(--muted); }
