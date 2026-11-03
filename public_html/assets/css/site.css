@@ -185,6 +185,10 @@ html.menu-open .site-header { position: fixed; }
 }
 @media (min-width: 1021px) { .site-nav { display: none !important; } }
 
+/* Homepage banner fills the viewport without the surrounding white frame. */
+.page-home .site-header { top: 0; left: 0; right: 0; }
+.page-home .hero { min-height: 100vh; min-height: 100svh; margin: 0; border-radius: 0; }
+
 /* ---------- Dark hero card (home) ---------- */
 .hero, .page-intro {
   position: relative; isolation: isolate; overflow: hidden;
