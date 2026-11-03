@@ -530,7 +530,7 @@ code { font-size: 0.9em; background: rgba(0,0,0,.06); padding: 1px 6px; border-r
 .tab-no { font-size: 0.75rem; color: var(--gold-ink); }
 .svc-tabs a[aria-current="true"] .tab-no { color: var(--gold); }
 .svc-cards-section { scroll-margin-top: 80px; }
-.svc-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 22px); align-items: stretch; }
+.svc-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 22px); align-items: stretch; }
 .svc-card, .svc-card-body { min-width: 0; }
 .svc-card {
   scroll-margin-top: 90px;
@@ -558,7 +558,6 @@ code { font-size: 0.9em; background: rgba(0,0,0,.06); padding: 1px 6px; border-r
 .chips li { position: relative; padding: 6px 0 6px 14px; border-bottom: 1px solid var(--line); font-size: 0.82rem; font-weight: 500; }
 .chips li::before { content: ""; position: absolute; left: 0; top: 1.08em; width: 6px; height: 6px; border-radius: 1px; background: var(--gold); }
 .svc-card .actions { margin-top: auto; padding-top: 16px; }
-@media (max-width: 1000px) { .svc-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .svc-cards { grid-template-columns: 1fr; } .svc-card-media { aspect-ratio: 5 / 4; } }
 @media (prefers-reduced-motion: reduce) { .svc-card:hover { transform: none; } }
 .combine { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 56px; align-items: end; background: var(--surface); border: 0; padding: clamp(28px, 4vw, 56px); }
