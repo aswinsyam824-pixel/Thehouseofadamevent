@@ -563,5 +563,7 @@ code { font-size: 0.9em; background: rgba(0,0,0,.06); padding: 1px 6px; border-r
 @media (prefers-reduced-motion: reduce) { .svc-card:hover { transform: none; } }
 .combine { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 56px; align-items: end; background: var(--surface); border: 0; padding: clamp(28px, 4vw, 56px); }
 .combine-side p { color: var(--muted); }
-.combine-side .arrow-link { margin-top: 8px; }
+.combine-side .arrow-link { margin-top: 8px; padding: 12px 18px; border: 0; border-radius: 999px; background: var(--gold); color: #000; }
+.combine-side .arrow-link::before { content: none; }
+.combine-side .arrow-link:hover { background: var(--gold-hover); }
 @media (max-width: 860px) { .combine { grid-template-columns: 1fr; } }
