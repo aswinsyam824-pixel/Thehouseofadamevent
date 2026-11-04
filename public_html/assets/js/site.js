@@ -79,20 +79,16 @@
   });
 })();
 
-/* Continuous photo carousel; scrolling remains native, and motion can be paused. */
+/* Continuous photo carousel; scrolling remains native, and motion pauses on interaction. */
 (function () {
   var rail = document.querySelector('.rail');
   if (!rail) return;
   var track = rail.querySelector('.rail-track');
   var group = track && track.querySelector('.rail-group');
-  var toggle = rail.querySelector('.rail-toggle');
-  var pauseIcon = toggle && toggle.querySelector('.rail-pause-icon');
-  var playIcon = toggle && toggle.querySelector('.rail-play-icon');
-  if (!track || !group || !toggle) return;
+  if (!track || !group) return;
 
   var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (motion.matches) {
-    toggle.hidden = true;
     return;
   }
 
@@ -108,9 +104,8 @@
   }
   ensureLoopWidth();
   window.addEventListener('resize', ensureLoopWidth);
-
   rail.classList.add('is-carousel');
-  var paused = false;
+  rail.classList.add('is-carousel');
   var frame = 0;
   var lastTime = 0;
   var resumeTimer = 0;
@@ -121,7 +116,7 @@
     lastTime = 0;
   }
   function start() {
-    if (paused || motion.matches || document.hidden || frame) return;
+    if (motion.matches || document.hidden || frame) return;
     frame = window.requestAnimationFrame(tick);
   }
   function tick(time) {
@@ -130,18 +125,6 @@
     if (rail.scrollLeft >= groupWidth) rail.scrollLeft -= groupWidth;
     frame = window.requestAnimationFrame(tick);
   }
-  function updateToggle() {
-    var label = paused ? 'Resume automatic photo carousel' : 'Pause automatic photo carousel';
-    toggle.setAttribute('aria-label', label);
-    pauseIcon.hidden = paused;
-    playIcon.hidden = !paused;
-  }
-
-  toggle.addEventListener('click', function () {
-    paused = !paused;
-    updateToggle();
-    if (paused) stop(); else start();
-  });
   rail.addEventListener('pointerenter', stop);
   rail.addEventListener('pointerleave', start);
   rail.addEventListener('focusin', stop);
@@ -165,9 +148,7 @@
   motion.addEventListener('change', function (event) {
     if (event.matches) {
       stop();
-      toggle.hidden = true;
     } else {
-      toggle.hidden = false;
       start();
     }
   });
