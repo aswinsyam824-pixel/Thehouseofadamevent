@@ -170,19 +170,3 @@
     r.addEventListener('focusin', function () { show(k); });
   });
 })();
-
-/* Services page: highlight the tab for the service in view. */
-(function () {
-  var tabs = document.querySelectorAll('.svc-tabs a[href^="#"]');
-  if (!tabs.length || !('IntersectionObserver' in window)) return;
-  var map = {};
-  tabs.forEach(function (t) { map[t.getAttribute('href').slice(1)] = t; });
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      tabs.forEach(function (t) { t.removeAttribute('aria-current'); });
-      var t = map[e.target.id]; if (t) t.setAttribute('aria-current', 'true');
-    });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  Object.keys(map).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
-})();
